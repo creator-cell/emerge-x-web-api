@@ -1,25 +1,27 @@
 const mongoose = require("mongoose");
 
-const blogSchema = mongoose.Schema(
+const contactSchema = mongoose.Schema(
   {
-    htmlBody: {
+    name: {
       type: String,
       required: true,
     },
-    bannerImage: {
+    email: {
       type: String,
       required: true,
     },
-    futureImages: {
+    mobile: {
       type: String,
       required: true,
     },
-    Images: {
-      type: Array,
-    },
-    title: {
+    country: {
       type: String,
-      required: true,
+    },
+    Company: {
+      type: String,
+    },
+    note: {
+      type: String,
     },
   },
   {
@@ -27,5 +29,5 @@ const blogSchema = mongoose.Schema(
   }
 );
 
-const Blog = mongoose.model("Blog", blogSchema);
-module.exports = Blog;
+const Contact = mongoose.model("Contact", contactSchema);
+module.exports = Contact;

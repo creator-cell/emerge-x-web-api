@@ -6,9 +6,16 @@ const newsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {
+    bannerImage: {
       type: String,
       required: true,
+    },
+    futureImages: {
+      type: String,
+      required: true,
+    },
+    Images: {
+      type: Array,
     },
     title: {
       type: String,
