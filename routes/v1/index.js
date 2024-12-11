@@ -3,7 +3,7 @@ const blogRoute = require("./blog.route");
 const newsRoute = require("./news.route");
 const demoRequestRoute = require("./demoRequest.route");
 const contactRoute = require("./contact.route");
-
+const userRoute = require("./user.route");
 const router = express.Router();
 
 const defaultRoutes = [
@@ -23,6 +23,10 @@ const defaultRoutes = [
     path: "/demoRequest",
     route: demoRequestRoute,
   },
+  {
+    path: "/user",
+    route: userRoute,
+  }
 ];
 
 defaultRoutes.forEach((route) => {

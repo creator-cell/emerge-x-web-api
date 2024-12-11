@@ -2,6 +2,8 @@ const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const routes = require("./routes/v1");
+const AuthJwt = require("./helper/jwt");
+const errorHandler = require("./helper/errorHandler");
 
 const app = express();
 const port = process.env.PORT || 8081;
@@ -11,6 +13,9 @@ app.use(express.json());
 
 // v1 api routes
 app.use("/v1", routes);
+
+app.use(AuthJwt());
+app.use(errorHandler);
 
 // MongoDB Connection
 if (!process.env.MONGO_URL) {
