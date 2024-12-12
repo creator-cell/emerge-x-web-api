@@ -1,17 +1,18 @@
 const express = require("express");
 const userController = require("../../controllers/user.controller");
-const userValidator = require("../../validations/user.validator");
+// const userValidator = require("../../validations/user.validator");
 
 const router = express.Router();
+console.log("user route");
 
-router.route("/").post(userValidator.createUser,userController.createUser);
+router.route("/").post(userController.createUser);
 router
   .route("/:id")
   .get(userController.getUser)
-  .put(userValidator.updateUser,userController.updateUser)
+  .put(userController.updateUser)
   .delete(userController.deleteUser);
 
-router.route("/login").post(userValidator.login,userController.loginUser);
-router.route("/forgot-password").post(userValidator.forgotPassword,userController.forgotPassword);
-router.route("/reset-password").post(userValidator.resetPassword,userController.resetPassword);
+router.route("/login").post(userController.loginUser);
+router.route("/forgot-password").post(userController.forgotPassword);
+router.route("/reset-password").post(userController.resetPassword);
 module.exports = router;

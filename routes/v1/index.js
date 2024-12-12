@@ -26,7 +26,7 @@ const defaultRoutes = [
   {
     path: "/user",
     route: userRoute,
-  }
+  },
 ];
 
 defaultRoutes.forEach((route) => {
