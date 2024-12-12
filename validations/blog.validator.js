@@ -30,19 +30,19 @@ const createBlogValidation = [
       }
       return true;
     }),
-  check("Images")
-    .if(body("Images").notEmpty())
-    .withMessage("Images must be array"),
-  check("Images.*")
-    .optional()
-    .custom((value) => {
-      const base64Regex =
-        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-      if (!base64Regex.test(value)) {
-        throw new Error("Invalid base64 image format");
-      }
-      return true;
-    }),
+  //   check("Images")
+  //     .if(body("Images").notEmpty())
+  //     .withMessage("Images must be array"),
+  //   check("Images.*")
+  //     .optional()
+  //     .custom((value) => {
+  //       const base64Regex =
+  //         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+  //       if (!base64Regex.test(value)) {
+  //         throw new Error("Invalid base64 image format");
+  //       }
+  //       return true;
+  //     }),
   check("title")
     .notEmpty()
     .withMessage("Title is require")
