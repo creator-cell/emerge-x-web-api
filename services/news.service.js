@@ -9,16 +9,19 @@ const createNews = async (newsBody) => {
   //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
   //   ImagesURl.push(imageUrl.ImageURl);
   // }
-  return await News.create({
-    htmlBody: htmlBody,
-    bannerImage: "https://picsum.photos/300/200",
-    futureImages: "https://picsum.photos/300/200",
-    Images: [
-      "https://picsum.photos/300/200",
-      "https://picsum.photos/300/200"
-    ],
-    title: title
-  });
+
+  return await News.create(newsBody);
+
+  // return await News.create({
+  //   htmlBody: htmlBody,
+  //   bannerImage: "https://picsum.photos/300/200",
+  //   futureImages: "https://picsum.photos/300/200",
+  //   Images: [
+  //     "https://picsum.photos/300/200",
+  //     "https://picsum.photos/300/200"
+  //   ],
+  //   title: title
+  // });
 };
 
 const getNews = async (id) => {

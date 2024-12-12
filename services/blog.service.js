@@ -12,16 +12,17 @@ const createBlog = async (newsBody) => {
     //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
     //   ImagesURl.push(imageUrl.ImageURl);
     // }
-    return await Blog.create({
-      htmlBody:htmlBody,
-      bannerImage: "https://picsum.photos/300/200",
-      futureImages: "https://picsum.photos/300/200",
-      Images: [
-        "https://picsum.photos/300/200",
-        "https://picsum.photos/300/200"
-      ],
-      title:title
-    });
+    return await Blog.create(newsBody);
+    // return await Blog.create({
+    //   htmlBody:htmlBody,
+    //   bannerImage: "https://picsum.photos/300/200",
+    //   futureImages: "https://picsum.photos/300/200",
+    //   Images: [
+    //     "https://picsum.photos/300/200",
+    //     "https://picsum.photos/300/200"
+    //   ],
+    //   title:title
+    // });
   } catch (err) {
     throw new Error(err.message || "Error create blog");
   }
@@ -33,14 +34,13 @@ const getBlogs = async (id) => {
 
 const getAllBlogs = async (limit, skip) => {
   return await Blog.find().limit(limit).skip(skip);
-}
+};
 
 const countBlog = async () => {
   return await Blog.countDocuments();
-}
+};
 
 const updateBlog = async (id, updateBody) => {
-  
   return await Blog.findByIdAndUpdate(id, updateBody, { new: true });
 };
 
@@ -54,5 +54,5 @@ module.exports = {
   updateBlog,
   deleteBlog,
   getAllBlogs,
-  countBlog
+  countBlog,
 };
