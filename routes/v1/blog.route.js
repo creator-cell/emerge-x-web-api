@@ -1,13 +1,29 @@
 const express = require("express");
 const blogController = require("../../controllers/blog.controller");
+const blogValidation = require("../../validations/blog.validator.js");
 
 const router = express.Router();
 
-router.route("/").post(blogController.createBlog);
+router.route("/")
+  .get(blogController.getAllBlog)
+  .post(
+    blogValidation.createBlogValidation,
+    blogController.createBlog
+  );
 router
   .route("/:id")
-  .get(blogController.getBlog)
-  .put(blogController.updateBlog)
-  .delete(blogController.deleteBlog);
+  .get(
+    blogValidation.blogIdValidation,
+    blogController.getBlog
+  )
+  .put(
+    blogValidation.blogIdValidation,
+    blogValidation.updateBlogValidation,
+    blogController.updateBlog
+  )
+  .delete(
+    blogValidation.blogIdValidation,
+    blogController.deleteBlog
+  );
 
 module.exports = router;

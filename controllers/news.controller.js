@@ -1,7 +1,12 @@
 const { newsService } = require("../services");
+const { validationResult } = require("../validations/news.validator.js");
 
 const createNews = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to create news", errors:errors.array() });
+    }
     const news = await newsService.createNews(req.body);
     res.status(201).json({ message: "News created successfully", news });
   } catch (error) {
@@ -12,6 +17,10 @@ const createNews = async (req, res) => {
 
 const getNews = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to get news", errors:errors.array() });
+    }
     const newsId = req.params.id;
     const news = await newsService.getNews(newsId);
 
@@ -28,6 +37,10 @@ const getNews = async (req, res) => {
 
 const updateNews = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to update news", errors:errors.array() });
+    }
     const newsId = req.params.id;
     const updatedNews = await newsService.updateNews(newsId, req.body);
 
@@ -46,6 +59,10 @@ const updateNews = async (req, res) => {
 
 const deleteNews = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to delete news", errors:errors.array() });
+    }
     const newsId = req.params.id;
     const deletedNews = await newsService.deleteNews(newsId);
 

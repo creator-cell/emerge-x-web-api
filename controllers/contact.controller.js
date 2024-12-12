@@ -1,7 +1,12 @@
 const { contactService } = require("../services");
+const { validationResult } = require("../validations/contact.validator.js");
 
 const createContact = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to create contact", errors:errors.array() });
+    }
     const contact = await contactService.createContact(req.body);
     res.status(201).json({ message: "Contact created successfully", contact });
   } catch (error) {
@@ -12,8 +17,12 @@ const createContact = async (req, res) => {
 
 const getContact = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to get contact", errors:errors.array() });
+    }
     const contactId = req.params.id;
-    const contact = await contactService.getContact(contactId);
+    const contact = await contactService.getContacts(contactId);
 
     if (!contact) {
       return res.status(404).json({ message: "Contact not found" });
@@ -28,6 +37,10 @@ const getContact = async (req, res) => {
 
 const updateContact = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to update contact", errors:errors.array() });
+    }
     const contactId = req.params.id;
     const updatedContact = await contactService.updateContact(
       contactId,
@@ -50,6 +63,10 @@ const updateContact = async (req, res) => {
 
 const deleteContact = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message:"Error to delete contact", errors:errors.array() });
+    }
     const contactId = req.params.id;
     const deletedContact = await contactService.deleteContact(contactId);
 

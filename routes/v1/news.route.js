@@ -1,13 +1,26 @@
 const express = require("express");
-const newsController = require("../../controllers/news.controller");
-
+const newsController = require("../../controllers/news.controller.js");
+const newsValidation = require("../../validations/news.validator.js");
 const router = express.Router();
 
-router.route("/").post(newsController.createNews);
+router.route("/").post(
+  newsValidation.createNewsValidation,
+  newsController.createNews
+);
 router
   .route("/:id")
-  .get(newsController.getNews)
-  .put(newsController.updateNews)
-  .delete(newsController.deleteNews);
+  .get(
+    newsValidation.newsIdValidation,
+    newsController.getNews
+  )
+  .put(
+    newsValidation.newsIdValidation,
+    newsValidation.updateNewsValidation,
+    newsController.updateNews
+  )
+  .delete(
+    newsValidation.newsIdValidation,
+    newsController.deleteNews
+  );
 
 module.exports = router;
