@@ -2,26 +2,39 @@ const mongoose = require("mongoose");
 
 const newsSchema = mongoose.Schema(
   {
-    htmlBody: {
+    heading: {
       type: String,
       required: true,
     },
-    description: {
+    mainDescription: {
       type: String,
       required: true,
     },
-    bannerImage: {
+    description1: {
       type: String,
       required: true,
     },
-    futureImages: {
+    description2: {
       type: String,
       required: true,
     },
-    Images: {
-      type: Array,
+    finalDescription: {
+      type: String,
+      required: true,
     },
-    title: {
+    heroBanner: {
+      type: String,
+      required: true,
+    },
+    featureImage: {
+      type: String,
+      required: true,
+    },
+    subFeatureImage1: {
+      type: String,
+      required: true,
+    },
+    subFeatureImage2: {
       type: String,
       required: true,
     },

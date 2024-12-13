@@ -3,105 +3,83 @@ const { default: mongoose } = require("mongoose");
 const { getNews } = require("../services/news.service.js");
 
 const createNewsValidation = [
-  check("htmlBody")
+  check("heading")
     .notEmpty()
-    .withMessage("html body is require")
+    .withMessage("heading is require")
     .isString()
-    .withMessage("html body must be string"),
-  check("bannerImage")
+    .withMessage("heading must be string"),
+  check("mainDescription")
     .notEmpty()
-    .withMessage("Banner image is require")
+    .withMessage("mainDescription is require")
+    .isString()
+    .withMessage("mainDescription must be string"),
+  check("description1")
+    .notEmpty()
+    .withMessage("description1 is require")
+    .isString()
+    .withMessage("description1 must be string"),
+  check("description2")
+    .notEmpty()
+    .withMessage("description2 is require")
+    .isString()
+    .withMessage("description2 must be string"),
+  check("finalDescription")
+    .notEmpty()
+    .withMessage("finalDescription is require")
+    .isString()
+    .withMessage("finalDescription must be string"),
+  check("heroBanner")
+    .notEmpty()
+    .withMessage("heroBanner is require")
     .custom((value) => {
       const base64Regex =
         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
       if (!base64Regex.test(value)) {
-        throw new Error("Invalid base64 banner image format");
+        throw new Error("Invalid base64 heroBanner format");
       }
       return true;
     }),
-  check("futureImages")
+  check("featureImage")
     .notEmpty()
-    .withMessage("Future images is require")
+    .withMessage("featureImage is require")
     .custom((value) => {
       const base64Regex =
         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
       if (!base64Regex.test(value)) {
-        throw new Error("Invalid base64 future image format");
+        throw new Error("Invalid base64 featureImage format");
       }
       return true;
     }),
-  check("Images")
-    .if(body("Images").notEmpty())
-    .isArray()
-    .withMessage("Images must be array"),
-  check("Images.*")
-    .optional()
+  check("subFeatureImage1")
+    .notEmpty()
+    .withMessage("subFeatureImage1 is require")
     .custom((value) => {
       const base64Regex =
         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
       if (!base64Regex.test(value)) {
-        throw new Error("Invalid base64 image format");
+        throw new Error("Invalid base64 subFeatureImage1 format");
       }
       return true;
     }),
-  check("title")
+  check("subFeatureImage2")
     .notEmpty()
-    .withMessage("Title is require")
-    .isString()
-    .withMessage("Title must be string"),
-  check("description")
-    .notEmpty()
-    .withMessage("Description is require")
-    .isString()
-    .withMessage("Description must be string"),
+    .withMessage("subFeatureImage2 is require")
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 subFeatureImage2 format");
+      }
+      return true;
+    }),
 ];
 
-const updateNewsValidation = [
-  check("htmlBody")
-    .if(body("htmlBody").notEmpty())
-    .isString()
-    .withMessage("html body must be string"),
-  // check("bannerImage")
-  //     .if(body("bannerImage").notEmpty())
-  //     .custom((value) => {
-  //         const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-  //         if (!base64Regex.test(value)) {
-  //             throw new Error("Invalid base64 banner image format");
-  //         }
-  //         return true;
-  //     }),
-  // check("futureImages")
-  //     .if(body("futureImages").notEmpty())
-  //     .custom((value) => {
-  //         const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-  //         if (!base64Regex.test(value)) {
-  //             throw new Error("Invalid base64 future image format");
-  //         }
-  //         return true;
-  //     }),
-  // check("Images")
-  //     .if(body("Images").notEmpty())
-  //     .isArray()
-  //     .withMessage("Images must be array"),
-  // check("Images.*")
-  //     .optional()
-  //     .custom((value) => {
-  //         const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-  //         if (!base64Regex.test(value)) {
-  //             throw new Error("Invalid base64 image format");
-  //         }
-  //         return true;
-  //     }),
-  check("title")
-    .if(body("title").notEmpty())
-    .isString()
-    .withMessage("Title must be string"),
-];
+const updateNewsValidation = [];
 
 const newsIdValidation = [
   check("id")
     .notEmpty()
-    .withMessage("Blog id not found")
+    .withMessage("News id not found")
     .custom(async (value) => {
       if (!mongoose.isValidObjectId(value)) {
         throw new Error("News id is not valid");
