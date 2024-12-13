@@ -2,16 +2,21 @@ const { expressjwt } = require("express-jwt");
 
 function AuthJwt() {
     const secret = process.env.JWT_SECRET;
-    const ApiBaseUrl = process.env.BASE_URI_V1;
-    const ServiceName = process.env.SERVICE_NAME;
     return expressjwt({
         secret,
         algorithms: ['HS256'],
         isRevoked: isRevoked
     }).unless({
         path: [
-            { url: /\/api\/v1\/store(.*)/, methods: ["GET","OPTION"] },
-            `${ApiBaseUrl}${ServiceName}`
+            { url: /v1\/user(.*)/, methods: ["GET","OPTION"] },
+            { url: /v1\/blog(.*)/, methods: ["GET","OPTION"] },
+            { url: /v1\/news(.*)/, methods: ["GET","OPTION"] },
+            { url: /v1\/contact(.*)/, methods: ["GET","OPTION"] },
+            { url: /v1\/demoRequest(.*)/, methods: ["GET","OPTION"] },
+            `/v1/user/login`,
+            `/v1/user/forgot-password`,
+            `/v1/user/reset-password`,
+            `/v1/user`   
         ]
     })
 }

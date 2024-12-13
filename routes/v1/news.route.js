@@ -2,11 +2,16 @@ const express = require("express");
 const newsController = require("../../controllers/news.controller.js");
 const newsValidation = require("../../validations/news.validator.js");
 const router = express.Router();
-
-router.route("/").post(
-  newsValidation.createNewsValidation,
-  newsController.createNews
-);
+const pagination = require("express-paginate");
+router.route("/")
+  .get(
+    pagination.middleware(1, 1000),
+    newsController.getAllNews
+  )
+  .post(
+    newsValidation.createNewsValidation,
+    newsController.createNews
+  );
 router
   .route("/:id")
   .get(

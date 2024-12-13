@@ -19,6 +19,8 @@ app.options("*", cors());
 // v1 api routes
 app.use(morgan("tiny"));
 // app.use(AuthJwt());
+app.use(AuthJwt());
+app.use(errorHandler);
 app.use("/v1", routes);
 // app.use(errorHandler);
 

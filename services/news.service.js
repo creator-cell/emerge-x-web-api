@@ -1,7 +1,8 @@
 const { News } = require("../models");
 
 const createNews = async (newsBody) => {
-  const { htmlBody, bannerImage, futureImages, Images, title } = newsBody;
+  const { htmlBody, bannerImage, futureImages, Images, title, description } =
+    newsBody;
   // const bannerImageUrl = await UploadBase64Image(bannerImage);
   // let futureImagesUrl = await UploadBase64Image(futureImages);
   // let ImagesURl = [];
@@ -9,9 +10,6 @@ const createNews = async (newsBody) => {
   //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
   //   ImagesURl.push(imageUrl.ImageURl);
   // }
-
-  return await News.create(newsBody);
-
   // return await News.create({
   //   htmlBody: htmlBody,
   //   bannerImage: "https://picsum.photos/300/200",
@@ -20,8 +18,18 @@ const createNews = async (newsBody) => {
   //     "https://picsum.photos/300/200",
   //     "https://picsum.photos/300/200"
   //   ],
-  //   title: title
+  //   title: title,
+  //   description:description
   // });
+  return await News.create(newsBody);
+};
+
+const getAllNews = async (limit, skip) => {
+  return await News.find().limit(limit).skip(skip);
+};
+
+const countNews = async () => {
+  return await News.countDocuments();
 };
 
 const getNews = async (id) => {
@@ -41,4 +49,6 @@ module.exports = {
   getNews,
   updateNews,
   deleteNews,
+  getAllNews,
+  countNews,
 };

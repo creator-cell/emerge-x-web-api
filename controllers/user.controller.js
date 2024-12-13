@@ -1,7 +1,7 @@
 const { User } = require("../models");
 const { userService } = require("../services");
 const { validationResult } = require("express-validator");
-
+const pagination = require("express-paginate");
 const loginUser = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -18,7 +18,7 @@ const loginUser = async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in user:", error);
-    res.status(500).json({ error: "Failed to login user" });
+    res.status(500).json({ error: error.message || "Failed to login user" });
   }
 };
 
@@ -54,17 +54,17 @@ const resetPassword = async (req, res) => {
     res.status(200).json({ message: "Password reset successful" });
   } catch (error) {
     console.error("Error resetting password:", error);
-    res.status(500).json({ error: "Failed to reset password" });
+    res.status(500).json({ error: error.message || "Failed to reset password" });
   }
 };
 
 const createUser = async (req, res) => {
   console.log("create ....");
   try {
-    // const Errors = validationResult(req);
-    // if (!Errors.isEmpty()) {
-    //     return res.status(400).json({ Errors: Errors.array() });
-    // }
+    const Errors = validationResult(req);
+    if (!Errors.isEmpty()) {
+      return res.status(400).json({ Errors: Errors.array() });
+    }
     const userExit = await User.findOne({ email: req.body.email });
     if (userExit) {
       return res.status(400).json({ message: "User already exists" });
@@ -79,6 +79,10 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
+    const Errors = validationResult(req);
+    if (!Errors.isEmpty()) {
+      return res.status(400).json({ Errors: Errors.array() });
+    }
     const userId = req.params.id;
     const user = await userService.getUser(userId);
 
@@ -86,10 +90,31 @@ const getUser = async (req, res) => {
       return res.status(404).json({ message: "user not found" });
     }
 
-    res.status(200).json({ news });
+    res.status(200).json({ user: user });
   } catch (error) {
     console.error("Error fetching user:", error);
     res.status(500).json({ error: "Failed to fetch user" });
+  }
+};
+
+const getAllUser = async (req, res) => {
+  try {
+    const limit = req.query.limit || 10;
+    const skip = req.skip || 0;
+    const index = req.query.page || 1;
+    const users = await userService.getAllUser(limit, skip);
+    const userCount = await userService.countUser();
+    const totalPages = Math.ceil(userCount / limit);
+    return res.status(200).json({
+      users:users,
+      pages: pagination.getArrayPages(req)(limit, totalPages, index),
+      nextPage: pagination.hasNextPages(req)(totalPages),
+      currentPage: index,
+      previousPage: index > 1,
+    });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: error.message || "Failed to fetch user" });
   }
 };
 
@@ -112,12 +137,16 @@ const updateUser = async (req, res) => {
       .json({ message: "User updated successfully", user: updatedUser });
   } catch (error) {
     console.error("Error updating user:", error);
-    res.status(500).json({ error: "Failed to update user" });
+    res.status(500).json({ error: error.message || "Failed to update user" });
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
+    const Errors = validationResult(req);
+    if (!Errors.isEmpty()) {
+      return res.status(400).json({ Errors: Errors.array() });
+    }
     const userId = req.params.id;
     const deletedUser = await userService.deleteUser(userId);
 
@@ -140,4 +169,5 @@ module.exports = {
   loginUser,
   forgotPassword,
   resetPassword,
+  getAllUser
 };

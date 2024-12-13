@@ -1,11 +1,14 @@
 const express = require("express");
 const blogController = require("../../controllers/blog.controller");
 const blogValidation = require("../../validations/blog.validator.js");
-
+const pagination = require("express-paginate");
 const router = express.Router();
 
 router.route("/")
-  .get(blogController.getAllBlog)
+  .get(
+    pagination.middleware(1, 1000),
+    blogController.getAllBlog
+  )
   .post(
     blogValidation.createBlogValidation,
     blogController.createBlog

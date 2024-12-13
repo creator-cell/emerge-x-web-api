@@ -27,7 +27,7 @@ const getAllBlog = async (req, res) => {
     const totalPages = Math.ceil(blogCount / limit);
     return res.status(200).json({
       blog: blog,
-      // pages: pagination.getArrayPages(req)(limit, totalPages, index),
+      pages: pagination.getArrayPages(req)(limit, totalPages, index),
       nextPage: pagination.hasNextPages(req)(totalPages),
       currentPage: index,
       previousPage: index > 1,

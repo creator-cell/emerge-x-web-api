@@ -12,7 +12,6 @@ const createBlog = async (newsBody) => {
     //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
     //   ImagesURl.push(imageUrl.ImageURl);
     // }
-    return await Blog.create(newsBody);
     // return await Blog.create({
     //   htmlBody:htmlBody,
     //   bannerImage: "https://picsum.photos/300/200",
@@ -23,6 +22,7 @@ const createBlog = async (newsBody) => {
     //   ],
     //   title:title
     // });
+    return await Blog.create(newsBody);
   } catch (err) {
     throw new Error(err.message || "Error create blog");
   }

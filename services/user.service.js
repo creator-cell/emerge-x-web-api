@@ -46,7 +46,7 @@ const forgotPassword = async (email) => {
 
   // Email configuration
   const mailOptions = {
-    from: process.env.SMTP_USERNAME,
+    from: process.env.EMAIL_SENDER,
     to: user.email,
     subject: "Password Reset Request",
     html: `
@@ -96,6 +96,14 @@ const getUser = async (id) => {
   return await User.findById(id);
 };
 
+const getAllUser = async (limit,skip) => {
+  return await User.find().limit(limit).skip(skip);
+};
+
+const countUser = async () => {
+  return await User.countDocuments();
+}
+
 const updateUser = async (id, updateBody) => {
   return await User.findByIdAndUpdate(id, updateBody, { new: true });
 };
@@ -112,4 +120,6 @@ module.exports = {
   updateUser,
   deleteUser,
   resetPassword,
+  getAllUser,
+  countUser
 };
