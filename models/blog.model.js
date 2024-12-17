@@ -18,10 +18,6 @@ const blogSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    // Images: {
-    //   type: String,
-    //   required: true,
-    // },
     title: {
       type: String,
       required: true,
