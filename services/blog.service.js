@@ -1,28 +1,26 @@
 const { Blog } = require("../models");
-const { UploadBase64Image } = require("../helper/s3Client.js");
+const { UploadBase64Image, DeleteFile } = require("../helper/s3Client.js");
 const { default: mongoose } = require("mongoose");
 
 const createBlog = async (newsBody) => {
   try {
-    const { htmlBody, bannerImage, futureImages, Images, title } = newsBody;
-    // const bannerImageUrl = await UploadBase64Image(bannerImage);
-    // let futureImagesUrl = await UploadBase64Image(futureImages);
-    // let ImagesURl = [];
-    // for (let index = 0; index < ImagesURl.length; index++) {
-    //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
-    //   ImagesURl.push(imageUrl.ImageURl);
+    const { htmlBody, bannerImage, futureImages, title, description } = newsBody;
+    const bannerImageUrl = await UploadBase64Image(bannerImage);
+    let futureImagesUrl = await UploadBase64Image(futureImages);
+    // let imagesURl = [];
+    // for (let index = 0; index < Images.length; index++) {
+    //   const image = await UploadBase64Image(Images[index]);
+    //   imagesURl.push(image.ImageURl);
     // }
-    // return await Blog.create({
-    //   htmlBody:htmlBody,
-    //   bannerImage: "https://picsum.photos/300/200",
-    //   futureImages: "https://picsum.photos/300/200",
-    //   Images: [
-    //     "https://picsum.photos/300/200",
-    //     "https://picsum.photos/300/200"
-    //   ],
-    //   title:title
-    // });
-    return await Blog.create(newsBody);
+    return await Blog.create({
+      htmlBody: htmlBody,
+      bannerImage: bannerImageUrl?.ImageURl,
+      futureImages: futureImagesUrl?.ImageURl,
+      // Images: imagesURl,
+      title: title,
+      description: description
+    });
+    // return await Blog.create(newsBody);
   } catch (err) {
     throw new Error(err.message || "Error create blog");
   }
@@ -41,11 +39,44 @@ const countBlog = async () => {
 };
 
 const updateBlog = async (id, updateBody) => {
-  return await Blog.findByIdAndUpdate(id, updateBody, { new: true });
+  try {
+    const { htmlBody, bannerImage, futureImages, description, title } = updateBody;
+    const blog = await Blog.findById(id);
+    let newBannerImage = blog.bannerImage;
+    let newFutureImages = blog.futureImages;
+    if (bannerImage) {
+      const image = await UploadBase64Image(bannerImage);
+      newBannerImage = image.ImageURl;
+      await DeleteFile(blog.bannerImage.split('.com/')[1]);
+    }
+    if (futureImages) {
+      const image = await UploadBase64Image(futureImages);
+      newBannerImage = image.ImageURl;
+      await DeleteFile(blog.futureImages.split('.com/')[1]);
+    }
+    return await Blog.findByIdAndUpdate(id, {
+      htmlBody: htmlBody || blog.htmlBody,
+      bannerImage: newBannerImage,
+      futureImages: newFutureImages,
+      title: title || blog.title,
+      description: description || blog.description
+    }, { new: true });
+  } catch (error) {
+    throw new Error(error.message || "Error for update blog");
+  }
 };
 
 const deleteBlog = async (id) => {
-  return await Blog.findByIdAndDelete(id);
+  try {
+    const blog = await Blog.findById(id);
+    if (blog) {
+      await DeleteFile(blog?.bannerImage?.split('.com/')[1]);
+      await DeleteFile(blog?.futureImages?.split('.com/')[1]);
+    }
+    return await Blog.findByIdAndDelete(id);
+  } catch (error) {
+    throw new Error(error.message || "Error for delete blog");
+  }
 };
 
 module.exports = {

@@ -61,6 +61,8 @@ const UploadBase64Image = async (base64String) => {
     const Command = new PutObjectCommand(Params);
     const Response = await S3.send(Command);
 
+    console.log(Response);
+
     if (Response.$metadata.httpStatusCode !== 200) {
       return { Error: Response.$metadata, Success: false };
     }
@@ -108,7 +110,7 @@ const DeleteFile = async (FileName) => {
     };
     const Command = new DeleteObjectCommand(Params);
     const Response = await S3.send(Command);
-    // console.log(Response);
+    console.log(Response);
     if (Response.$metadata.httpStatusCode !== 204) {
       return { Success: false, Error: Response.$metadata };
     }

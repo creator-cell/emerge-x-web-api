@@ -12,6 +12,10 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await userService.loginUser(email, password);
 
+    res.cookie('token', user.token, {
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: 'strict'
+    })
     res.status(200).json({
       message: "Login successful",
       user,

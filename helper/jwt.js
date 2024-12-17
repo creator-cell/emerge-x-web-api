@@ -4,6 +4,9 @@ function AuthJwt() {
     const secret = process.env.JWT_SECRET;
     return expressjwt({
         secret,
+        getToken: (req) => {
+            return req.cookies?.token || req.get("Authorization")?.split(" ")[1];
+        },
         algorithms: ['HS256'],
         isRevoked: isRevoked
     }).unless({

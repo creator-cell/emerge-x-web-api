@@ -74,7 +74,68 @@ const createNewsValidation = [
     }),
 ];
 
-const updateNewsValidation = [];
+const updateNewsValidation = [
+  check("heading")
+    .if(body("heading").notEmpty())
+    .isString()
+    .withMessage("heading must be string"),
+  check("mainDescription")
+    .if(body("mainDescription").notEmpty())
+    .isString()
+    .withMessage("mainDescription must be string"),
+  check("description1")
+    .if(body("description1").notEmpty())
+    .isString()
+    .withMessage("description1 must be string"),
+  check("description2")
+    .if(body("description2").notEmpty())
+    .isString()
+    .withMessage("description2 must be string"),
+  check("finalDescription")
+    .if(body("finalDescription").notEmpty())
+    .isString()
+    .withMessage("finalDescription must be string"),
+  check("heroBanner")
+    .if(body("heroBanner").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 heroBanner format");
+      }
+      return true;
+    }),
+  check("featureImage")
+    .if(body("featureImage").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 featureImage format");
+      }
+      return true;
+    }),
+  check("subFeatureImage1")
+    .if(body("subFeatureImage1").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 subFeatureImage1 format");
+      }
+      return true;
+    }),
+  check("subFeatureImage2")
+    .if(body("subFeatureImage2").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 subFeatureImage2 format");
+      }
+      return true;
+    }),
+];
 
 const newsIdValidation = [
   check("id")

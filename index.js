@@ -7,6 +7,7 @@ const AuthJwt = require("./helper/jwt");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./helper/errorHandler");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 8081;
@@ -19,6 +20,7 @@ app.options("*", cors());
 // v1 api routes
 app.use(morgan("tiny"));
 // app.use(AuthJwt());
+app.use(cookieParser());
 app.use(AuthJwt());
 app.use(errorHandler);
 app.use("/v1", routes);

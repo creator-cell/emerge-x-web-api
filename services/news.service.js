@@ -1,27 +1,29 @@
 const { News } = require("../models");
+const { DeleteFile, UploadBase64Image } = require("../helper/s3Client");
 
 const createNews = async (newsBody) => {
-  const { htmlBody, bannerImage, futureImages, Images, title, description } =
-    newsBody;
-  // const bannerImageUrl = await UploadBase64Image(bannerImage);
-  // let futureImagesUrl = await UploadBase64Image(futureImages);
-  // let ImagesURl = [];
-  // for (let index = 0; index < ImagesURl.length; index++) {
-  //   const imageUrl = await UploadBase64Image(ImagesURl[index]);
-  //   ImagesURl.push(imageUrl.ImageURl);
-  // }
-  // return await News.create({
-  //   htmlBody: htmlBody,
-  //   bannerImage: "https://picsum.photos/300/200",
-  //   futureImages: "https://picsum.photos/300/200",
-  //   Images: [
-  //     "https://picsum.photos/300/200",
-  //     "https://picsum.photos/300/200"
-  //   ],
-  //   title: title,
-  //   description:description
-  // });
-  return await News.create(newsBody);
+  try {
+    const { heading, mainDescription, description1, description2, finalDescription, heroBanner, featureImage, subFeatureImage1, subFeatureImage2 } = newsBody;
+    const heroBannerUrl = await UploadBase64Image(heroBanner);
+    const featureImageUrl = await UploadBase64Image(featureImage);
+    const subFeatureImage1Url = await UploadBase64Image(subFeatureImage1);
+    const subFeatureImage2Url = await UploadBase64Image(subFeatureImage2);
+
+    return await News.create({
+      heading: heading,
+      mainDescription: mainDescription,
+      description1: description1,
+      description2: description2,
+      finalDescription: finalDescription,
+      heroBanner: heroBannerUrl?.ImageURl,
+      featureImage: featureImageUrl?.ImageURl,
+      subFeatureImage1: subFeatureImage1Url?.ImageURl,
+      subFeatureImage2: subFeatureImage2Url?.ImageURl
+    });
+    // return await News.create(newsBody);
+  } catch (error) {
+    throw new Error(error.message || "Error for create news");
+  }
 };
 
 const getAllNews = async (limit, skip) => {
@@ -37,11 +39,63 @@ const getNews = async (id) => {
 };
 
 const updateNews = async (id, updateBody) => {
-  return await News.findByIdAndUpdate(id, updateBody, { new: true });
+  try {
+    const { heading, mainDescription, description1, description2, finalDescription, heroBanner, featureImage, subFeatureImage1, subFeatureImage2 } = updateBody;
+    const news = await News.findById(id);
+    let newHeroBanner = news.heroBanner;
+    let newFeatureImage = news.featureImage;
+    let newSubFeatureImage1 = news.subFeatureImage1;
+    let newSubFeatureImage2 = news.subFeatureImage2;
+    if (heroBanner) {
+      const image = await UploadBase64Image(heroBanner);
+      newHeroBanner = image.ImageURl;
+      await DeleteFile(news.heroBanner?.split(".com/")[1]);
+    }
+    if (featureImage) {
+      const image = await UploadBase64Image(featureImage);
+      newFeatureImage = image.ImageURl;
+      await DeleteFile(news.featureImage?.split(".com/")[1]);
+    }
+    if (subFeatureImage1) {
+      const image = await UploadBase64Image(subFeatureImage1);
+      newSubFeatureImage1 = image.ImageURl;
+      await DeleteFile(news.subFeatureImage1?.split(".com/")[1]);
+    }
+    if (subFeatureImage2) {
+      const image = await UploadBase64Image(subFeatureImage2);
+      newSubFeatureImage2 = image.ImageURl;
+      await DeleteFile(news.subFeatureImage2?.split(".com/")[1]);
+    }
+
+    return await News.findByIdAndUpdate(id, {
+      heading: heading || news.heading,
+      mainDescription: mainDescription || news.mainDescription,
+      description1: description1 || news.description1,
+      description2: description2 || news.description2,
+      finalDescription: finalDescription || news.finalDescription,
+      heroBanner: newHeroBanner,
+      featureImage: newFeatureImage,
+      subFeatureImage1: newSubFeatureImage1,
+      subFeatureImage2: newSubFeatureImage2
+    }, { new: true });
+  } catch (error) {
+    throw new Error(error.message || "Error for update news");
+  }
 };
 
 const deleteNews = async (id) => {
-  return await News.findByIdAndDelete(id);
+  try {
+    const news = await News.findById(id);
+    if (news) {
+      await DeleteFile(news.heroBanner?.split(".com/")[1]);
+      await DeleteFile(news.featureImage?.split(".com/")[1]);
+      await DeleteFile(news.subFeatureImage1?.split(".com/")[1]);
+      await DeleteFile(news.subFeatureImage2?.split(".com/")[1]);
+    }
+    return await News.findByIdAndDelete(id);
+  } catch (error) {
+    throw new Error(error.message || "Error for Delete news");
+  }
 };
 
 module.exports = {
