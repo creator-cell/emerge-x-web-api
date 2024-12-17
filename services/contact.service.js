@@ -16,9 +16,18 @@ const deleteContact = async (id) => {
   return await Contact.findByIdAndDelete(id);
 };
 
+const getAllContact = async (limit, skip) => {
+  return await Contact.find().limit(limit).skip(skip);
+};
+const countContact = async () => {
+  return await Contact.countDocuments();
+};
+
 module.exports = {
   createContact,
   getContacts,
   updateContact,
   deleteContact,
+  getAllContact,
+  countContact,
 };
