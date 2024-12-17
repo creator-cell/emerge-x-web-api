@@ -7,7 +7,9 @@ const createBlog = async (req, res) => {
     const errors = validationResult(req);
     console.log(errors.isEmpty());
     if (!errors.isEmpty()) {
-      return res.status(400).json({ message:"Error creating blog", errors:errors.array() });
+      return res
+        .status(400)
+        .json({ message: "Error creating blog", errors: errors.array() });
     }
     const blog = await blogService.createBlog(req.body);
     res.status(201).json({ message: "Blog created successfully" });
@@ -36,16 +38,18 @@ const getAllBlog = async (req, res) => {
     console.error("Error fetching blog:", error);
     res.status(500).json({ error: "Failed to fetch blog" });
   }
-}
+};
 
 const getBlog = async (req, res) => {
   try {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return res.status(400).json({ message:"Error get blog data", errors: errors.array() });
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Error get blog data", errors: errors.array() });
     }
     const blogId = req.params.id;
-    const blog = await blogService.getBlog(blogId);
+    const blog = await blogService.getBlogs(blogId);
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
@@ -61,8 +65,10 @@ const getBlog = async (req, res) => {
 const updateBlog = async (req, res) => {
   try {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return res.status(400).json({ message:"Error Update blog data", errors: errors.array() });
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Error Update blog data", errors: errors.array() });
     }
     const blogId = req.params.id;
     const updatedBlog = await blogService.updateBlog(blogId, req.body);
@@ -83,8 +89,10 @@ const updateBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
   try {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return res.status(400).json({ message:"Error delete blog", errors: errors.array() });
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Error delete blog", errors: errors.array() });
     }
     const blogId = req.params.id;
     const deletedBlog = await blogService.deleteBlog(blogId);
@@ -105,5 +113,5 @@ module.exports = {
   getBlog,
   updateBlog,
   deleteBlog,
-  getAllBlog
+  getAllBlog,
 };
