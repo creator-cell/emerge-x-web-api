@@ -16,9 +16,19 @@ const deleteDemoRequest = async (id) => {
   return await DemoRequest.findByIdAndDelete(id);
 };
 
+const getAllDemoRequest = async (limit, skip) => {
+  return await DemoRequest.find().limit(limit).skip(skip);
+};
+
+const countDemoRequest = async () => {
+  return await DemoRequest.countDocuments();
+};
+
 module.exports = {
   createDemoRequest,
   getDemoRequests,
   updateDemoRequest,
   deleteDemoRequest,
+  getAllDemoRequest,
+  countDemoRequest,
 };

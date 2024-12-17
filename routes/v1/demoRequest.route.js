@@ -1,10 +1,12 @@
 const express = require("express");
 const demoRequestController = require("../../controllers/demoRequest.controller");
 const demoRequiresValidator = require("../../validations/demo.validator.js");
+const pagination = require("express-paginate");
 const router = express.Router();
 
 router
   .route("/")
+  .get(pagination.middleware(1, 1000), demoRequestController.getAllDemoRequest)
   .post(
     demoRequiresValidator.createDemoRequiresValidation,
     demoRequestController.createDemoRequest
