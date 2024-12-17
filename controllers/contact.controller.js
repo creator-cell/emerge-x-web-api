@@ -1,6 +1,6 @@
 const { contactService } = require("../services");
 const { validationResult } = require("../validations/contact.validator.js");
-
+const pagination = require("express-paginate");
 const createContact = async (req, res) => {
   try {
     const errors = validationResult(req);
