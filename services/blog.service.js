@@ -4,8 +4,14 @@ const { default: mongoose } = require("mongoose");
 
 const createBlog = async (newsBody) => {
   try {
-    const { htmlBody, bannerImage, futureImages, title, description } =
-      newsBody;
+    const {
+      htmlBody,
+      bannerImage,
+      futureImages,
+      title,
+      description,
+      authorName,
+    } = newsBody;
     const bannerImageUrl = await UploadBase64Image(bannerImage);
     console.log(bannerImageUrl);
     const futureImagesUrl = await UploadBase64Image(futureImages);
@@ -16,6 +22,7 @@ const createBlog = async (newsBody) => {
       futureImages: futureImagesUrl?.ImageURl,
       title: title,
       description: description,
+      authorName: authorName,
     });
   } catch (err) {
     throw new Error(err.message || "Error create blog");
@@ -36,8 +43,14 @@ const countBlog = async () => {
 
 const updateBlog = async (id, updateBody) => {
   try {
-    const { htmlBody, bannerImage, futureImages, description, title } =
-      updateBody;
+    const {
+      htmlBody,
+      bannerImage,
+      futureImages,
+      description,
+      title,
+      authorName,
+    } = updateBody;
     const blog = await Blog.findById(id);
     let newBannerImage = blog.bannerImage;
     let newFutureImages = blog.futureImages;
@@ -59,6 +72,7 @@ const updateBlog = async (id, updateBody) => {
         futureImages: newFutureImages,
         title: title || blog.title,
         description: description || blog.description,
+        authorName: authorName || blog.authorName,
       },
       { new: true }
     );
