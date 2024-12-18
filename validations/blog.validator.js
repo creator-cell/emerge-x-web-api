@@ -30,30 +30,21 @@ const createBlogValidation = [
       }
       return true;
     }),
-  check("Images")
-    .if(body("Images").notEmpty())
-    .isArray()
-    .withMessage("Images must be array"),
-  check("Images.*")
-    .optional()
-    .custom((value) => {
-      const base64Regex =
-        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-      if (!base64Regex.test(value)) {
-        throw new Error("Invalid base64 image format");
-      }
-      return true;
-    }),
   check("title")
     .notEmpty()
     .withMessage("Title is require")
     .isString()
     .withMessage("Title must be string"),
+  check("authorName")
+    .notEmpty()
+    .withMessage("authorName is require")
+    .isString()
+    .withMessage("authorName must be string"),
   check("description")
     .notEmpty()
     .withMessage("Description is require")
     .isString()
-    .withMessage("Description must be string")
+    .withMessage("Description must be string"),
 ];
 
 const updateBlogValidation = [
@@ -62,36 +53,30 @@ const updateBlogValidation = [
     .isString()
     .withMessage("html body must be string"),
   check("bannerImage")
-      .if(body("bannerImage").notEmpty())
-      .custom((value) => {
-          const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-          if (!base64Regex.test(value)) {
-              throw new Error("Invalid base64 banner image format");
-          }
-          return true;
-      }),
+    .if(body("bannerImage").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 banner image format");
+      }
+      return true;
+    }),
   check("futureImages")
-      .if(body("futureImages").notEmpty())
-      .custom((value) => {
-          const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-          if (!base64Regex.test(value)) {
-              throw new Error("Invalid base64 future image format");
-          }
-          return true;
-      }),
-  // check("Images")
-  //     .if(body("Images").notEmpty())
-  //     .isArray()
-  //     .withMessage("Images must be array"),
-  // check("Images.*")
-  //     .optional()
-  //     .custom((value) => {
-  //         const base64Regex = /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
-  //         if (!base64Regex.test(value)) {
-  //             throw new Error("Invalid base64 image format");
-  //         }
-  //         return true;
-  //     }),
+    .if(body("futureImages").notEmpty())
+    .custom((value) => {
+      const base64Regex =
+        /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
+      if (!base64Regex.test(value)) {
+        throw new Error("Invalid base64 future image format");
+      }
+      return true;
+    }),
+  check("authorName")
+    .notEmpty()
+    .withMessage("authorName is require")
+    .isString()
+    .withMessage("authorName must be string"),
   check("title")
     .if(body("title").notEmpty())
     .isString()
@@ -99,7 +84,7 @@ const updateBlogValidation = [
   check("description")
     .if(body("description"))
     .isString()
-    .withMessage("Description must be string")
+    .withMessage("Description must be string"),
 ];
 
 const blogIdValidation = [
