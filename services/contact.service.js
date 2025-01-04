@@ -17,7 +17,7 @@ const deleteContact = async (id) => {
 };
 
 const getAllContact = async (limit, skip) => {
-  return await Contact.find().limit(limit).skip(skip);
+  return await Contact.find().sort({ createdAt: -1 }).limit(limit).skip(skip);
 };
 const countContact = async () => {
   return await Contact.countDocuments();

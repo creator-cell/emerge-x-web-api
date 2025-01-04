@@ -17,7 +17,10 @@ const deleteDemoRequest = async (id) => {
 };
 
 const getAllDemoRequest = async (limit, skip) => {
-  return await DemoRequest.find().limit(limit).skip(skip);
+  return await DemoRequest.find()
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .skip(skip);
 };
 
 const countDemoRequest = async () => {

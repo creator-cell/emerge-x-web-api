@@ -10,28 +10,27 @@ const transporter = nodemailer.createTransport({
   },
 });
 const loginUser = async (email, password) => {
-    const user = await User.findOne({ email });
-    if (!user) {
-      throw new Error("User not found");
-    }
-    
-    const isMatch = await user.isPasswordMatch(password);
-    if (!isMatch) {
-      throw new Error("Invalid password");
-    }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("User not found");
+  }
 
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
+  const isMatch = await user.isPasswordMatch(password);
+  if (!isMatch) {
+    throw new Error("Invalid password");
+  }
 
-    const userObject = user.toObject();
-    userObject.token = token;
-    
-    return userObject;
+  const token = jwt.sign(
+    { userId: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "24h" }
+  );
+
+  const userObject = user.toObject();
+  userObject.token = token;
+
+  return userObject;
 };
-
 
 const forgotPassword = async (email) => {
   const user = await User.findOne({ email });
@@ -96,13 +95,13 @@ const getUser = async (id) => {
   return await User.findById(id);
 };
 
-const getAllUser = async (limit,skip) => {
-  return await User.find().limit(limit).skip(skip);
+const getAllUser = async (limit, skip) => {
+  return await User.find().sort({ createdAt: -1 }).limit(limit).skip(skip);
 };
 
 const countUser = async () => {
   return await User.countDocuments();
-}
+};
 
 const updateUser = async (id, updateBody) => {
   return await User.findByIdAndUpdate(id, updateBody, { new: true });
@@ -121,5 +120,5 @@ module.exports = {
   deleteUser,
   resetPassword,
   getAllUser,
-  countUser
+  countUser,
 };

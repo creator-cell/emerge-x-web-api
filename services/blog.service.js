@@ -34,7 +34,7 @@ const getBlogs = async (id) => {
 };
 
 const getAllBlogs = async (limit, skip) => {
-  return await Blog.find().limit(limit).skip(skip);
+  return await Blog.find().sort({ createdAt: -1 }).limit(limit).skip(skip);
 };
 
 const countBlog = async () => {

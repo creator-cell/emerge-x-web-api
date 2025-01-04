@@ -3,7 +3,17 @@ const { DeleteFile, UploadBase64Image } = require("../helper/s3Client");
 
 const createNews = async (newsBody) => {
   try {
-    const { heading, mainDescription, description1, description2, finalDescription, heroBanner, featureImage, subFeatureImage1, subFeatureImage2 } = newsBody;
+    const {
+      heading,
+      mainDescription,
+      description1,
+      description2,
+      finalDescription,
+      heroBanner,
+      featureImage,
+      subFeatureImage1,
+      subFeatureImage2,
+    } = newsBody;
     const heroBannerUrl = await UploadBase64Image(heroBanner);
     const featureImageUrl = await UploadBase64Image(featureImage);
     const subFeatureImage1Url = await UploadBase64Image(subFeatureImage1);
@@ -18,7 +28,7 @@ const createNews = async (newsBody) => {
       heroBanner: heroBannerUrl?.ImageURl,
       featureImage: featureImageUrl?.ImageURl,
       subFeatureImage1: subFeatureImage1Url?.ImageURl,
-      subFeatureImage2: subFeatureImage2Url?.ImageURl
+      subFeatureImage2: subFeatureImage2Url?.ImageURl,
     });
     // return await News.create(newsBody);
   } catch (error) {
@@ -27,7 +37,7 @@ const createNews = async (newsBody) => {
 };
 
 const getAllNews = async (limit, skip) => {
-  return await News.find().limit(limit).skip(skip);
+  return await News.find().sort({ createdAt: -1 }).limit(limit).skip(skip);
 };
 
 const countNews = async () => {
@@ -40,7 +50,17 @@ const getNews = async (id) => {
 
 const updateNews = async (id, updateBody) => {
   try {
-    const { heading, mainDescription, description1, description2, finalDescription, heroBanner, featureImage, subFeatureImage1, subFeatureImage2 } = updateBody;
+    const {
+      heading,
+      mainDescription,
+      description1,
+      description2,
+      finalDescription,
+      heroBanner,
+      featureImage,
+      subFeatureImage1,
+      subFeatureImage2,
+    } = updateBody;
     const news = await News.findById(id);
     let newHeroBanner = news.heroBanner;
     let newFeatureImage = news.featureImage;
@@ -67,17 +87,21 @@ const updateNews = async (id, updateBody) => {
       await DeleteFile(news.subFeatureImage2?.split(".com/")[1]);
     }
 
-    return await News.findByIdAndUpdate(id, {
-      heading: heading || news.heading,
-      mainDescription: mainDescription || news.mainDescription,
-      description1: description1 || news.description1,
-      description2: description2 || news.description2,
-      finalDescription: finalDescription || news.finalDescription,
-      heroBanner: newHeroBanner,
-      featureImage: newFeatureImage,
-      subFeatureImage1: newSubFeatureImage1,
-      subFeatureImage2: newSubFeatureImage2
-    }, { new: true });
+    return await News.findByIdAndUpdate(
+      id,
+      {
+        heading: heading || news.heading,
+        mainDescription: mainDescription || news.mainDescription,
+        description1: description1 || news.description1,
+        description2: description2 || news.description2,
+        finalDescription: finalDescription || news.finalDescription,
+        heroBanner: newHeroBanner,
+        featureImage: newFeatureImage,
+        subFeatureImage1: newSubFeatureImage1,
+        subFeatureImage2: newSubFeatureImage2,
+      },
+      { new: true }
+    );
   } catch (error) {
     throw new Error(error.message || "Error for update news");
   }
