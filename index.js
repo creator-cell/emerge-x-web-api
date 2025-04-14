@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 
 // Middleware
-app.use(bodyParser.json({ limit: "35mb" }));
+app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
 app.use(cors());
 app.options("*", cors());

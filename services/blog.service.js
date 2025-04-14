@@ -61,9 +61,10 @@ const updateBlog = async (id, updateBody) => {
     }
     if (futureImages) {
       const image = await UploadBase64Image(futureImages);
-      newBannerImage = image.ImageURl;
+      newFutureImages = image.ImageURl;
       await DeleteFile(blog.futureImages.split(".com/")[1]);
     }
+  
     return await Blog.findByIdAndUpdate(
       id,
       {

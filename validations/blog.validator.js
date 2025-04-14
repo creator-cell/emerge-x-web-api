@@ -4,13 +4,15 @@ const { getBlogs } = require("../services/blog.service.js");
 
 const createBlogValidation = [
   check("htmlBody")
-    .notEmpty()
-    .withMessage("html body is require")
+    // .notEmpty()
+    // .withMessage("html body is require")
+    .if(body("htmlBody").notEmpty())
     .isString()
     .withMessage("html body must be string"),
   check("bannerImage")
-    .notEmpty()
-    .withMessage("Banner image is require")
+    // .notEmpty()
+    // .withMessage("Banner image is require")
+    .if(body("bannerImage").notEmpty())
     .custom((value) => {
       const base64Regex =
         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
@@ -20,8 +22,9 @@ const createBlogValidation = [
       return true;
     }),
   check("futureImages")
-    .notEmpty()
-    .withMessage("Future images is require")
+    // .notEmpty()
+    // .withMessage("Future images is require")
+    .if(body("futureImages").notEmpty())
     .custom((value) => {
       const base64Regex =
         /^data:image\/(png|jpeg|jpg|gif|bmp|webp|svg\+xml);base64,[A-Za-z0-9+/=]+$/;
@@ -31,18 +34,21 @@ const createBlogValidation = [
       return true;
     }),
   check("title")
-    .notEmpty()
-    .withMessage("Title is require")
+    // .notEmpty()
+    // .withMessage("Title is require")
+    .if(body("title").notEmpty())
     .isString()
     .withMessage("Title must be string"),
   check("authorName")
-    .notEmpty()
-    .withMessage("authorName is require")
+    // .notEmpty()
+    // .withMessage("authorName is require")
+    .if(body("authorName").notEmpty())
     .isString()
     .withMessage("authorName must be string"),
   check("description")
-    .notEmpty()
-    .withMessage("Description is require")
+    // .notEmpty()
+    // .withMessage("Description is require")
+    .if(body("description").notEmpty())
     .isString()
     .withMessage("Description must be string"),
 ];
@@ -73,8 +79,9 @@ const updateBlogValidation = [
       return true;
     }),
   check("authorName")
-    .notEmpty()
-    .withMessage("authorName is require")
+    // .notEmpty()
+    // .withMessage("authorName is require")
+    .if(body("authorName").notEmpty())
     .isString()
     .withMessage("authorName must be string"),
   check("title")
@@ -82,7 +89,7 @@ const updateBlogValidation = [
     .isString()
     .withMessage("Title must be string"),
   check("description")
-    .if(body("description"))
+    .if(body("description").notEmpty())
     .isString()
     .withMessage("Description must be string"),
 ];

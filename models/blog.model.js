@@ -4,27 +4,27 @@ const blogSchema = mongoose.Schema(
   {
     htmlBody: {
       type: String,
-      required: true,
+      // required: true,
     },
     description: {
       type: String,
-      required: true,
+      // required: true,
     },
     bannerImage: {
       type: String,
-      required: true,
+      // required: true,
     },
     futureImages: {
       type: String,
-      required: true,
+      // required: true,
     },
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     authorName: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   {

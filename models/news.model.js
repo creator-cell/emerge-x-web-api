@@ -4,39 +4,39 @@ const newsSchema = mongoose.Schema(
   {
     heading: {
       type: String,
-      required: true,
+      // required: true,
     },
     mainDescription: {
       type: String,
-      required: true,
+      // required: true,
     },
     description1: {
       type: String,
-      required: true,
+      // required: true,
     },
     description2: {
       type: String,
-      required: true,
+      // required: true,
     },
     finalDescription: {
       type: String,
-      required: true,
+      // required: true,
     },
     heroBanner: {
       type: String,
-      required: true,
+      // required: true,
     },
     featureImage: {
       type: String,
-      required: true,
+      // required: true,
     },
     subFeatureImage1: {
       type: String,
-      required: true,
+      // required: true,
     },
     subFeatureImage2: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   {

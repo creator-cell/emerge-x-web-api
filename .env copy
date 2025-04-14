@@ -1,6 +1,6 @@
 PORT = 8081
 ADMIN_EMAIL = mailto:mrugeshpatelcumulative@gmail.com
-MONGO_URL = mailto:mongodb+srv://mrugeshpatelcumulativeemerge:1mtg6cvefa6deyxg@emerge.mzhlp.mongodb.net/?retryWrites=true&w=majority&appName=emerge
+MONGO_URL = mongodb+srv://mrugeshpatelcumulativeemerge:w6vb3hm8i2xp65a9gqv6@emerge.mzhlp.mongodb.net/?retryWrites=true&w=majority&appName=emerge
 
 #smtp onfiguration
 SMTP_HOST = smtp-relay.brevo.com
@@ -18,3 +18,4 @@ ACCESS_KEY=AKIASFIXCROZ65WOGHXI
 SECRET_KEY=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
 ARN=arn:aws:s3:::emerge-x-web
 BUCKET_NAME=emerge-x-web
+REGION=us-east-1

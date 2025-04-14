@@ -14,11 +14,11 @@ const createNews = async (newsBody) => {
       subFeatureImage1,
       subFeatureImage2,
     } = newsBody;
-    const heroBannerUrl = await UploadBase64Image(heroBanner);
-    const featureImageUrl = await UploadBase64Image(featureImage);
-    const subFeatureImage1Url = await UploadBase64Image(subFeatureImage1);
-    const subFeatureImage2Url = await UploadBase64Image(subFeatureImage2);
-
+    const heroBannerUrl = heroBanner ? await UploadBase64Image(heroBanner) : "";
+    const featureImageUrl = featureImage ? await UploadBase64Image(featureImage) : "";
+    const subFeatureImage1Url = subFeatureImage1 ? await UploadBase64Image(subFeatureImage1) : "";
+    const subFeatureImage2Url = subFeatureImage2 ? await UploadBase64Image(subFeatureImage2) : "";
+    console.log(heroBannerUrl, featureImageUrl);
     return await News.create({
       heading: heading,
       mainDescription: mainDescription,
