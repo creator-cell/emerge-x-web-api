@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "e98b76fc-8e83-49c9-a70e-e78b473860ab",
+		"_postman_id": "693d5f56-c89a-49e7-96c2-f55d8a535093",
 		"name": "emerge-x",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "34166322"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43814504",
+		"_collection_link": "https://rasikmokariya.postman.co/workspace/rasik-mokariya's-Workspace~0936c9ba-d8dd-4a98-8b4f-173a3aa873c3/collection/43814504-693d5f56-c89a-49e7-96c2-f55d8a535093?action=share&source=collection_link&creator=43814504"
 	},
 	"item": [
 		{
@@ -26,16 +27,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/blog",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"blog"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/blog"
 							},
 							"response": []
 						},
@@ -53,17 +45,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/blog/675a8c5a657e21e5dd12e0ed",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"blog",
-										"675a8c5a657e21e5dd12e0ed"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/blog/675a8c5a657e21e5dd12e0ed"
 							},
 							"response": []
 						},
@@ -81,17 +63,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/blog/675a82c274dafc4366c43557",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"blog",
-										"675a82c274dafc4366c43557"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/blog/675a82c274dafc4366c43557"
 							},
 							"response": []
 						}
@@ -125,27 +97,24 @@
 				{
 					"name": "Add Blog",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2ZmNTg1ZWIxZTMwNDE1NjgzMDMyMzYiLCJlbWFpbCI6ImFkbWluQGVtZXJnZS5jb20iLCJpYXQiOjE3NDQ3OTg3MTUsImV4cCI6MTc0NDg4NTExNX0.DH5HXkcsRg4reD0mtYa4YrPk80hU5R0j91YGK7TdyYQ"
+							}
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"htmlBody\": \"hi\",\r\n    \"bannerImage\": \"base64\",\r\n    \"futureImages\": \"base64\",\r\n    \"Images\": [\r\n        \"base64\",\r\n        \"base64\"\r\n    ],\r\n    \"title\": \"title\"\r\n}",
+							"raw": "{\r\n    \"htmlBody\": \"html-body\",\r\n    \"bannerImage\": \"base64\",\r\n    \"futureImages\": \"base64\",\r\n    \"title\": \"title\",\r\n    \"description\": \"description\",\r\n    \"mainDescription\": \"main-description\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/blog",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"blog"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/blog"
 					},
 					"response": []
 				},
@@ -156,30 +125,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"htmlBody\": \"hi\",\r\n    \"bannerImage\": \"base64\",\r\n    \"futureImages\": \"base64\",\r\n    \"Images\": [\r\n        \"base64\",\r\n        \"base64\"\r\n    ],\r\n    \"title\": \"title\"\r\n}",
+							"raw": "{\r\n    \"htmlBody\": \"html-body\",\r\n    \"bannerImage\": \"base64\",\r\n    \"futureImages\": \"base64\",\r\n    \"title\": \"title\",\r\n    \"description\": \"description\",\r\n    \"mainDescription\": \"main-description\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/blog/:id",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"blog",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/blog/67ff85d0e614c60493f99dc2"
 					},
 					"response": []
 				},
@@ -188,17 +141,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/blog/675a8c5a657e21e5dd12e0ed",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"blog",
-								"675a8c5a657e21e5dd12e0ed"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/blog/675a8c5a657e21e5dd12e0ed"
 					},
 					"response": []
 				},
@@ -252,16 +195,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/news",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"news"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/news"
 							},
 							"response": []
 						},
@@ -270,17 +204,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/news/675a942e49f89860094f4f1f123",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"news",
-										"675a942e49f89860094f4f1f123"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/news/675a942e49f89860094f4f1f123"
 							},
 							"response": []
 						},
@@ -298,17 +222,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/news/675a942e49f89860094f4f1f",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"news",
-										"675a942e49f89860094f4f1f"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/news/675a942e49f89860094f4f1f"
 							},
 							"response": []
 						}
@@ -353,16 +267,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/news",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"news"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/news"
 					},
 					"response": []
 				},
@@ -430,16 +335,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/news",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"news"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/news"
 					},
 					"response": []
 				}
@@ -465,16 +361,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/contact",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"contact"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/contact"
 							},
 							"response": []
 						},
@@ -492,16 +379,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/contact",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"contact"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/contact"
 							},
 							"response": []
 						},
@@ -510,17 +388,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/contact/675a9ea56488ba734c49029a123",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"contact",
-										"675a9ea56488ba734c49029a123"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/contact/675a9ea56488ba734c49029a123"
 							},
 							"response": []
 						}
@@ -565,16 +433,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/contact",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"contact"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/contact"
 					},
 					"response": []
 				},
@@ -592,17 +451,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/contact/675a9ea56488ba734c49029a",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"contact",
-								"675a9ea56488ba734c49029a"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/contact/675a9ea56488ba734c49029a"
 					},
 					"response": []
 				},
@@ -653,16 +502,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/demoRequest",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"demoRequest"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/demoRequest"
 							},
 							"response": []
 						},
@@ -680,17 +520,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/demoRequest/675aa2130a3fb8a80ddc08cf123",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"demoRequest",
-										"675aa2130a3fb8a80ddc08cf123"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/demoRequest/675aa2130a3fb8a80ddc08cf123"
 							},
 							"response": []
 						}
@@ -735,16 +565,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/demoRequest",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"demoRequest"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/demoRequest"
 					},
 					"response": []
 				},
@@ -829,16 +650,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user"
 							},
 							"response": []
 						},
@@ -856,17 +668,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user/675ad846161be5f40c7f9d2a",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user",
-										"675ad846161be5f40c7f9d2a"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user/675ad846161be5f40c7f9d2a"
 							},
 							"response": []
 						},
@@ -884,17 +686,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user/login",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user",
-										"login"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user/login"
 							},
 							"response": []
 						},
@@ -912,17 +704,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user/login",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user",
-										"login"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user/login"
 							},
 							"response": []
 						},
@@ -940,17 +722,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user/forgot-password",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user",
-										"forgot-password"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user/forgot-password"
 							},
 							"response": []
 						},
@@ -968,17 +740,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user/reset-password",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user",
-										"reset-password"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user/reset-password"
 							},
 							"response": []
 						},
@@ -996,16 +758,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{BASE_URL}}/{{API_VERSION}}/user",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"{{API_VERSION}}",
-										"user"
-									]
-								}
+								"url": "{{BASE_URL}}/{{API_VERSION}}/user"
 							},
 							"response": []
 						}
@@ -1025,16 +778,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/user",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"user"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/user"
 					},
 					"response": []
 				},
@@ -1111,17 +855,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/user/login",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"user",
-								"login"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/user/login"
 					},
 					"response": []
 				},
@@ -1139,17 +873,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/user/forgot-password",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"user",
-								"forgot-password"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/user/forgot-password"
 					},
 					"response": []
 				},
@@ -1167,17 +891,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/user/reset-password",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"user",
-								"reset-password"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/user/reset-password"
 					},
 					"response": []
 				},
@@ -1198,17 +912,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{BASE_URL}}/{{API_VERSION}}/user/675ad846161be5f40c7f9d2a",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"{{API_VERSION}}",
-								"user",
-								"675ad846161be5f40c7f9d2a"
-							]
-						}
+						"url": "{{BASE_URL}}/{{API_VERSION}}/user/675ad846161be5f40c7f9d2a"
 					},
 					"response": []
 				},
