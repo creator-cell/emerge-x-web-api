@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const port = process.env.PORT || 8081;
 
-// Middleware
+// Middleware functions
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
 app.use(cors());
