@@ -17,7 +17,7 @@ const createDemoRequiresValidation = [
     .custom(async (value) => {
       const demoRequires = await DemoRequires.findOne({ email: value });
       if (demoRequires) {
-        throw new Error("Email is exist ply choose different email");
+        throw new Error("Email is exist please choose different email");
       }
       return true;
     }),
@@ -42,7 +42,7 @@ const updateDemoRequiresValidation = [
     .custom(async (value) => {
       const demoRequires = await DemoRequires.findOne({ email: value });
       if (demoRequires) {
-        throw new Error("Email is exist ply choose different email");
+        throw new Error("Email is exist please choose different email");
       }
       return true;
     }),
