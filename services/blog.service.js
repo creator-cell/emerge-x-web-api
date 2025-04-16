@@ -10,6 +10,7 @@ const createBlog = async (newsBody) => {
       futureImages,
       title,
       description,
+      mainDescription,
       authorName,
     } = newsBody;
     const bannerImageUrl = await UploadBase64Image(bannerImage);
@@ -22,6 +23,7 @@ const createBlog = async (newsBody) => {
       futureImages: futureImagesUrl?.ImageURl,
       title: title,
       description: description,
+      mainDescription: mainDescription,
       authorName: authorName,
     });
   } catch (err) {
@@ -48,6 +50,7 @@ const updateBlog = async (id, updateBody) => {
       bannerImage,
       futureImages,
       description,
+      mainDescription,
       title,
       authorName,
     } = updateBody;
@@ -68,12 +71,13 @@ const updateBlog = async (id, updateBody) => {
     return await Blog.findByIdAndUpdate(
       id,
       {
-        htmlBody: htmlBody || blog.htmlBody,
+        htmlBody: htmlBody || blog?.htmlBody,
         bannerImage: newBannerImage,
         futureImages: newFutureImages,
-        title: title || blog.title,
-        description: description || blog.description,
-        authorName: authorName || blog.authorName,
+        title: title || blog?.title,
+        description: description || blog?.description,
+        mainDescription: mainDescription || blog?.mainDescription,
+        authorName: authorName || blog?.authorName,
       },
       { new: true }
     );

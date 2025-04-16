@@ -10,6 +10,10 @@ const blogSchema = mongoose.Schema(
       type: String,
       // required: true,
     },
+    mainDescription: {
+      type: String,
+      // required: true,
+    },
     bannerImage: {
       type: String,
       // required: true,

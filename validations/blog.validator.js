@@ -51,6 +51,12 @@ const createBlogValidation = [
     .if(body("description").notEmpty())
     .isString()
     .withMessage("Description must be string"),
+  check("mainDescription")
+    // .notEmpty()
+    // .withMessage("Description is require")
+    .if(body("mainDescription").notEmpty())
+    .isString()
+    .withMessage("Main description must be string"),
 ];
 
 const updateBlogValidation = [
@@ -92,6 +98,10 @@ const updateBlogValidation = [
     .if(body("description").notEmpty())
     .isString()
     .withMessage("Description must be string"),
+  check("mainDescription")
+    .if(body("mainDescription").notEmpty())
+    .isString()
+    .withMessage("Main description must be string")
 ];
 
 const blogIdValidation = [
