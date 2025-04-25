@@ -4,6 +4,7 @@ const newsRoute = require("./news.route");
 const demoRequestRoute = require("./demoRequest.route");
 const contactRoute = require("./contact.route");
 const userRoute = require("./user.route");
+const contactCard=require("./contactCard.route")
 const router = express.Router();
 
 const defaultRoutes = [
@@ -27,6 +28,10 @@ const defaultRoutes = [
     path: "/user",
     route: userRoute,
   },
+  {
+    path: "/contactCard",
+    route: contactCard
+  }
 ];
 
 defaultRoutes.forEach((route) => {
