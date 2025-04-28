@@ -1,0 +1,49 @@
+
+const { UploadBase64Image, DeleteFile } = require("../helper/s3Client");
+const ContactCard = require("../models/contactCard.model");
+
+const createContactCardService = async (newsBody) => {
+  const photo = await UploadBase64Image(newsBody.photo);
+  return await ContactCard.create({ ...newsBody, photo: photo?.ImageURl });
+};
+
+const getContactCardService = async (id) => {
+  return await ContactCard.findById(id);
+};
+
+const updateContactCardService = async (id, updateBody) => {
+  const contactCard = await ContactCard.findById(id);
+  if (updateBody?.photo) {
+    const image = await UploadBase64Image(updateBody.photo);
+    updateBody.photo = image?.ImageURl;
+
+    if (contactCard.photo && contactCard?.photo.includes(".com/")) {
+      await DeleteFile(contactCard?.photo.split(".com/")[1]);
+    }
+  }
+  return await ContactCard.findByIdAndUpdate(id, updateBody, { new: true });
+};
+
+const deleteContactCardService = async (id) => {
+  const card = await ContactCard.findById(id);
+  if (card) {
+    await DeleteFile(card?.photo?.split(".com/")[1]);
+  }
+  return await ContactCard.findByIdAndDelete(id);
+};
+
+const getAllContactCardService = async (limit, skip) => {
+  return await ContactCard.find().sort({ createdAt: -1 }).limit(limit).skip(skip);
+};
+const countContactCardService = async () => {
+  return await ContactCard.countDocuments();
+};
+
+module.exports = {
+  createContactCardService,
+  getContactCardService,
+  updateContactCardService,
+  deleteContactCardService,
+  getAllContactCardService,
+  countContactCardService,
+};

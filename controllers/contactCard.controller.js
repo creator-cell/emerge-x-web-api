@@ -1,4 +1,4 @@
-const { contactCardService } = require("../services");
+const { createContactCardService, getContactCardService, updateContactCardService, deleteContactCardService, getAllContactCardService, countContactCardService } = require("../services/contactCard.service.js");
 const { validationResult } = require("../validations/contactCard.validator.js");
 const pagination = require("express-paginate");
 
@@ -12,7 +12,9 @@ const createContactCard = async (req, res) => {
         .json({ message: "Error to create contact card", errors: errors.array() });
     }
 
-    const contactCard = await contactCardService.createContactCard(req.body);
+    console.log('Helloo')
+    const contactCard = await createContactCardService(req.body);
+    console.log('Hello')
     res.status(201).json({ message: "Contact card created successfully", contactCard });
   } catch (error) {
     console.error("Error creating contact card:", error);
@@ -32,15 +34,15 @@ const getContactCard = async (req, res) => {
 
     // Check if the parameter is an ID or name
     const contactCardParam = req.params.id || req.params.name;
-    
+
     // Determine the search type (ID or name)
     let contactCard;
     if (contactCardParam.match(/^[0-9a-fA-F]{24}$/)) {
       // It's a valid ObjectId, so we search by ID
-      contactCard = await contactCardService.getContactCard(contactCardParam);
+      contactCard = await getContactCardService(contactCardParam);
     } else {
       // It's not a valid ObjectId, so we search by name
-      contactCard = await contactCardService.getContactCardByName(contactCardParam);
+      contactCard = await getContactCardByName(contactCardParam);
     }
 
     if (!contactCard) {
@@ -66,7 +68,7 @@ const updateContactCard = async (req, res) => {
     }
 
     const contactCardId = req.params.id;
-    const updatedContactCard = await contactCardService.updateContactCard(
+    const updatedContactCard = await updateContactCardService(
       contactCardId,
       req.body
     );
@@ -96,7 +98,7 @@ const deleteContactCard = async (req, res) => {
     }
 
     const contactCardId = req.params.id;
-    const deletedContactCard = await contactCardService.deleteContactCard(contactCardId);
+    const deletedContactCard = await deleteContactCardService(contactCardId);
 
     if (!deletedContactCard) {
       return res.status(404).json({ message: "Contact card not found" });
@@ -116,8 +118,8 @@ const getAllContactCards = async (req, res) => {
     const skip = req.skip || 0;
     const index = req.query.page || 1;
 
-    const contactCards = await contactCardService.getAllContactCards(limit, skip);
-    const contactCardCount = await contactCardService.countContactCards();
+    const contactCards = await getAllContactCardService(limit, skip);
+    const contactCardCount = await countContactCardService();
     const totalPages = Math.ceil(contactCardCount / limit);
 
     return res.status(200).json({

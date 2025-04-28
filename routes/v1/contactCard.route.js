@@ -26,7 +26,7 @@ router
     contactCardValidator.contactCardIdValidation,
     contactCardController.deleteContactCard
   );
- 
+
 // Get contact card by name
 router
   .route("/contact")

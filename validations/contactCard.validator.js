@@ -5,11 +5,10 @@ const createContactCardValidation = [
     check("photo")
         .notEmpty()
         .withMessage("Photo is required")
-        .isURL()
-        .withMessage("Photo must be a valid URL")
         .custom((value) => {
-            if (!value.match(/\.(jpeg|jpg|png)$/i)) {
-                throw new Error("Photo must be a JPEG or PNG image");
+            const base64Pattern = /^data:image\/(jpeg|jpg|png);base64,[A-Za-z0-9+/=]+$/i;
+            if (!base64Pattern.test(value)) {
+                throw new Error("Photo must be a valid Base64-encoded JPEG or PNG image");
             }
             return true;
         }),
