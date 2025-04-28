@@ -20,6 +20,7 @@ function AuthJwt() {
       `/v1/user/forgot-password`,
       `/v1/user/reset-password`,
       `/v1/user`,
+      `/v1/contactCard/contact`
     ],
   });
 }

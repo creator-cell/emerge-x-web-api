@@ -1,4 +1,4 @@
-const { createContactCardService, getContactCardService, updateContactCardService, deleteContactCardService, getAllContactCardService, countContactCardService } = require("../services/contactCard.service.js");
+const { createContactCardService, getContactCardService, updateContactCardService, deleteContactCardService, getAllContactCardService, countContactCardService, getContactCardByNameService } = require("../services/contactCard.service.js");
 const { validationResult } = require("../validations/contactCard.validator.js");
 const pagination = require("express-paginate");
 
@@ -42,7 +42,7 @@ const getContactCard = async (req, res) => {
       contactCard = await getContactCardService(contactCardParam);
     } else {
       // It's not a valid ObjectId, so we search by name
-      contactCard = await getContactCardByName(contactCardParam);
+      contactCard = await getContactCardByNameService(contactCardParam);
     }
 
     if (!contactCard) {

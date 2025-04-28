@@ -11,17 +11,22 @@ const getContactCardService = async (id) => {
   return await ContactCard.findById(id);
 };
 
+const getContactCardByNameService = async (name) => {
+  return await ContactCard.findOne({ name: name });
+};
+
 const updateContactCardService = async (id, updateBody) => {
   const contactCard = await ContactCard.findById(id);
+  let newPhoto = contactCard.photo;
   if (updateBody?.photo) {
-    const image = await UploadBase64Image(updateBody.photo);
-    updateBody.photo = image?.ImageURl;
+    const image = await UploadBase64Image(updateBody?.photo);
+    newPhoto = image.ImageURl;
 
-    if (contactCard.photo && contactCard?.photo.includes(".com/")) {
-      await DeleteFile(contactCard?.photo.split(".com/")[1]);
+    if (contactCard.photo && contactCard.photo.includes(".com/")) {
+      await DeleteFile(contactCard.photo.split(".com/")[1]);
     }
   }
-  return await ContactCard.findByIdAndUpdate(id, updateBody, { new: true });
+  return await ContactCard.findByIdAndUpdate(id, { ...updateBody, photo: newPhoto }, { new: true });
 };
 
 const deleteContactCardService = async (id) => {
@@ -46,4 +51,5 @@ module.exports = {
   deleteContactCardService,
   getAllContactCardService,
   countContactCardService,
+  getContactCardByNameService
 };

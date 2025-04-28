@@ -1,18 +1,7 @@
 const { check, validationResult } = require("express-validator");
 const ContactCard = require("../models/contactCard.model");
 
-const createContactCardValidation = [
-    check("photo")
-        .notEmpty()
-        .withMessage("Photo is required")
-        .custom((value) => {
-            const base64Pattern = /^data:image\/(jpeg|jpg|png);base64,[A-Za-z0-9+/=]+$/i;
-            if (!base64Pattern.test(value)) {
-                throw new Error("Photo must be a valid Base64-encoded JPEG or PNG image");
-            }
-            return true;
-        }),
-
+const baseValidations = [
     check("name")
         .notEmpty()
         .withMessage("Name is required")
@@ -80,7 +69,34 @@ const createContactCardValidation = [
         .withMessage("WhatsApp number is not valid"),
 ];
 
-const updateContactCardValidation = [...createContactCardValidation];
+const createContactCardValidation = [
+    check("photo")
+        .notEmpty()
+        .withMessage("Photo is required")
+        .custom((value) => {
+            const base64Pattern = /^data:image\/(jpeg|jpg|png);base64,[A-Za-z0-9+/=]+$/i;
+            if (!base64Pattern.test(value)) {
+                throw new Error("Photo must be a valid Base64-encoded JPEG or PNG image");
+            }
+            return true;
+        }),
+    ...baseValidations,
+];
+
+const updateContactCardValidation = [
+    check("photo")
+        .notEmpty()
+        .withMessage("Photo is required")
+        .custom((value) => {
+            const isBase64 = /^data:image\/(jpeg|jpg|png);base64,[A-Za-z0-9+/=]+$/i.test(value);
+            const isUrl = /^https?:\/\/.+/i.test(value);
+            if (!isBase64 && !isUrl) {
+                throw new Error("Photo must be a valid Base64 string or a valid URL");
+            }
+            return true;
+        }),
+    ...baseValidations,
+];
 
 // Validation for deleting a contact card
 const contactCardIdValidation = [

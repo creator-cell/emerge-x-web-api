@@ -4,7 +4,6 @@ const contactCardSchema = mongoose.Schema(
   {
     photo: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
