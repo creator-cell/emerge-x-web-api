@@ -15,8 +15,14 @@ const port = process.env.PORT || 8081;
 // Middleware functions
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
-app.use(cors());
-app.options("*", cors());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://3.29.44.158:3000"],
+    credentials: true,
+  })
+);
+// app.options("*", cors());
 // v1 api routes
 app.use(morgan("tiny"));
 // app.use(AuthJwt());
@@ -36,6 +42,7 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected to MongoDB");
+    console.log('MongoDB host', mongoose.connection.host)
     app.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
     });
