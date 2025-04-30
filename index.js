@@ -11,18 +11,21 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 8081;
-
+const allowedOrigins = ["http://localhost:3001", 'https://emerge-x.com/', 'https://admin.emerge-x.com/', 'https://contact-card.emerge-x.com/'];
 // Middleware functions
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://3.29.44.158:3000"],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
-// app.options("*", cors());
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 // v1 api routes
 app.use(morgan("tiny"));
 // app.use(AuthJwt());
