@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const { createContactCardService, getContactCardService, updateContactCardService, deleteContactCardService, getAllContactCardService, countContactCardService, getContactCardByNameService } = require("../services/contactCard.service.js");
 const { validationResult } = require("../validations/contactCard.validator.js");
 const pagination = require("express-paginate");
@@ -25,23 +26,14 @@ const createContactCard = async (req, res) => {
 // Get Contact Card by ID or name
 const getContactCard = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ message: "Error to get contact card", errors: errors.array() });
-    }
 
-    // Check if the parameter is an ID or name
     const contactCardParam = req.params.id || req.params.slug;
 
-    // Determine the search type (ID or name)
     let contactCard;
-    if (contactCardParam.match(/^[0-9a-fA-F]{24}$/)) {
-      // It's a valid ObjectId, so we search by ID
+    if (isValidObjectId(contactCardParam)) {
+
       contactCard = await getContactCardService(contactCardParam);
     } else {
-      // It's not a valid ObjectId, so we search by name
       contactCard = await getContactCardByNameService(contactCardParam);
     }
 

@@ -13,7 +13,8 @@ const getContactCardService = async (id) => {
 };
 
 const getContactCardByNameService = async (slug) => {
-  return await ContactCard.findOne({ slug });
+  const data = await ContactCard.findOne({ slug: slug });
+  return data
 };
 
 const updateContactCardService = async (id, updateBody) => {
