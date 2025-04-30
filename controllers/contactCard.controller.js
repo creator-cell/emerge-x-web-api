@@ -33,7 +33,7 @@ const getContactCard = async (req, res) => {
     }
 
     // Check if the parameter is an ID or name
-    const contactCardParam = req.params.id || req.params.name;
+    const contactCardParam = req.params.id || req.params.slug;
 
     // Determine the search type (ID or name)
     let contactCard;

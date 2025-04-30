@@ -1,18 +1,19 @@
 
 const { UploadBase64Image, DeleteFile } = require("../helper/s3Client");
 const ContactCard = require("../models/contactCard.model");
+const slugify = require('slugify')
 
-const createContactCardService = async (newsBody) => {
-  const photo = await UploadBase64Image(newsBody.photo);
-  return await ContactCard.create({ ...newsBody, photo: photo?.ImageURl });
+const createContactCardService = async (contactCardBody) => {
+  const photo = await UploadBase64Image(contactCardBody.photo);
+  return await ContactCard.create({ ...contactCardBody, photo: photo?.ImageURl, slug: slugify(contactCardBody.name, { lower: true }) });
 };
 
 const getContactCardService = async (id) => {
   return await ContactCard.findById(id);
 };
 
-const getContactCardByNameService = async (name) => {
-  return await ContactCard.findOne({ name: name });
+const getContactCardByNameService = async (slug) => {
+  return await ContactCard.findOne({ slug });
 };
 
 const updateContactCardService = async (id, updateBody) => {
