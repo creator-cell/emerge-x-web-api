@@ -29,7 +29,7 @@ router
 
 // Get contact card by name
 router
-  .route("/contact/:name")
+  .route("/contact/:slug")
   .get(contactCardValidator.contactCardNameValidation, contactCardController.getContactCard);
 
 module.exports = router;
