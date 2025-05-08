@@ -15,7 +15,8 @@ const allowedOrigins = ["http://localhost:3001", 'https://emerge-x.com/', 'https
 // Middleware functions
 app.use(bodyParser.json({ limit: "100mb" }));
 app.use(express.json());
-
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(
   cors({
     origin: allowedOrigins,
