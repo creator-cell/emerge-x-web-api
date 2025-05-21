@@ -62,9 +62,7 @@ const login = [
 
   check("password")
     .notEmpty()
-    .withMessage("Password is require")
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
-    .withMessage("Password must be at least8 characters long, contain at least one digit, one lowercase letter, and one uppercase letter")
+    .withMessage("Password is required")
 ]
 
 
@@ -93,7 +91,7 @@ const validateUserId = [
   check("id")
     .notEmpty()
     .withMessage("User id is require")
-    .custom( async (value) => {
+    .custom(async (value) => {
       if (!mongoose.isValidObjectId(value)) {
         throw new Error("User id is not valid");
       }
