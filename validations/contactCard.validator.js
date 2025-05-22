@@ -17,7 +17,7 @@ const baseValidations = [
     check("contactNumber")
         .notEmpty()
         .withMessage("Contact number is required")
-        .isMobilePhone()
+        .matches(/^\+91[6-9]\d{9}$|^\+971\d{8,9}$/)
         .withMessage("Contact number is not valid"),
 
     check("email")
@@ -65,7 +65,7 @@ const baseValidations = [
     check("whatsappNumber")
         .notEmpty()
         .withMessage("WhatsApp number is required")
-        .isMobilePhone()
+        .matches(/^\+91[6-9]\d{9}$|^\+971\d{8,9}$/)
         .withMessage("WhatsApp number is not valid"),
 ];
 
